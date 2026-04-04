@@ -2,7 +2,7 @@
 
 A standalone **Gutenberg-powered visual page editor** built with React and Vite — no WordPress required. Compose pages with blocks, apply reusable templates, undo/redo changes, and preview the rendered output exactly as a visitor would see it.
 
-**[Live Demo →](https://react-block-builder.vercel.app/)**
+**<a href="https://react-block-builder.vercel.app/" target="_blank">Live Demo →</a>**
 
 ---
 
