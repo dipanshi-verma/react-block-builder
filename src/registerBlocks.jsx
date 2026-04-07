@@ -134,7 +134,4 @@ export function initBlocks() {
 
   // Core Gutenberg blocks + hand-crafted blocks (imported at the top)
   registerCoreBlocks();
-
-  // Formatting extensions from @wordpress/format-library are disabled here because
-  // the package currently pulls unresolved transitive deps in this Vite setup.
 }
