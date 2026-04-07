@@ -12,7 +12,7 @@ import {
 import { serialize, parse, createBlock } from '@wordpress/blocks';
 import { SlotFillProvider, Popover } from '@wordpress/components';
 import { ShortcutProvider } from '@wordpress/keyboard-shortcuts';
-import { registerCoreBlocks } from '@wordpress/block-library';
+
 import { blockTemplates } from './data/blockTemplates';
 import { savePage, loadPage, listPages } from './data/api';
 import  logoimage from './images/editor-icon.png';
@@ -24,7 +24,13 @@ import { LuUndo,LuRedo } from "react-icons/lu";
 
 //import { __experimentalGetBlockPatterns } from '@wordpress/blocks';
 
-const DEFAULT_PAGE_ID = 'home';
+// -d adding the styles
+import '@wordpress/block-editor/build-style/style.css';
+import '@wordpress/components/build-style/style.css';
+import '@wordpress/block-library/build-style/style.css';
+import '@wordpress/block-library/build-style/theme.css';
+// import '@wordpress/block-library/build-module';
+// import '@wordpress/format-library';
 
 // Database functions are now in src/data/api.js — swap the bodies there
 // to point at any real backend (Express, WordPress REST API, Supabase, etc.)
@@ -91,7 +97,6 @@ function App({ onViewSite }) {
   useEffect(() => {
     loadBlocks();
   }, []);
-
   async function loadBlocks() {
     try {
       // loadPage() is defined in src/data/api.js

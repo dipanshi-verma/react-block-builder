@@ -9,6 +9,7 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: [
+      '@wordpress/format-library',
       '@wordpress/block-editor',
       '@wordpress/blocks',
       '@wordpress/components',
