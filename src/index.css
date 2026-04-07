@@ -982,8 +982,8 @@ p{
   color: #fff;
   border: none;
   padding: 9px 11px;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 500;
   border-radius: 0px;
   cursor: pointer;
   transition: var(--transition);
@@ -1094,20 +1094,20 @@ p{
   text-align: center;
   padding: 80px 32px;
 }
-.builder-wrapper .fp-empty-icon { font-size: 48px; margin-bottom: 16px; }
+.builder-wrapper .fp-empty-icon { font-size: 48px; line-height: 60px; margin-bottom: 16px; }
 .builder-wrapper .fp-empty-state h2 { font-size: 22px; margin-bottom: 8px; color: #1e1e1e; }
 .builder-wrapper .fp-empty-state p  { font-size: 15px; color: #666; margin-bottom: 24px; }
 
 .builder-wrapper .fp-cta-btn {
-  background: #3858e9;
+  background: var(--primary);
   color: #fff;
   border: none;
-  padding: 10px 24px;
-  border-radius: 6px;
+  padding: 9px 24px;
+  border-radius: 0px;
   font-size: 15px;
   cursor: pointer;
 }
-.builder-wrapper .fp-cta-btn:hover { background: #2145e6; }
+.builder-wrapper .fp-cta-btn:hover { background: var(--primary-hover) }
 
 /* -- Rendered page -- */
 .builder-wrapper .fp-page-header {
@@ -1427,4 +1427,21 @@ p{
 .block-editor-block-styles__variants button.components-button.block-editor-block-styles__item.is-active,
  .block-editor-block-styles__variants button.components-button.block-editor-block-styles__item.is-active:hover{
   background-color: var(--black);
- }
+}
+.builder-wrapper .components-button.is-primary:disabled,
+.builder-wrapper .components-button.is-primary:disabled:active:enabled,
+.builder-wrapper .components-button.is-primary[aria-disabled=true], 
+.builder-wrapper .components-button.is-primary[aria-disabled=true]:enabled,
+.builder-wrapper .components-button.is-primary[aria-disabled=true]:active:enabled{
+  background: var(--primary);
+  border-color: var(--primary);
+}
+.builder-wrapper .editor-canvas .block-editor-block-list__block-html-textarea{
+  width: 100%;
+}
+.builder-wrapper .block-editor-list-view-leaf.is-selected td{
+  background: var(--primary);
+}
+.builder-wrapper .fp-main{
+  max-width: 100%;
+}
