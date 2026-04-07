@@ -17,6 +17,12 @@ import { registerCoreBlocks } from '@wordpress/block-library';
 import { blockTemplates } from './data/blockTemplates';
 import { savePage, loadPage, listPages } from './data/api';
 import { __experimentalListView as ListView } from '@wordpress/block-editor';
+import  logoimage from './images/editor-icon.png';
+import { 
+  FaColumns, FaEye, FaEdit, FaTrash, FaSave, FaGlobe,FaPlus,FaRegSquare
+} from "react-icons/fa";
+
+import { LuUndo,LuRedo } from "react-icons/lu";
 const DEFAULT_PAGE_ID = 'home';
 
 // -d adding the styles
