@@ -39,14 +39,14 @@ import '@wordpress/block-library/build-style/theme.css';
 
 const EDITOR_SETTINGS = {
   // -d changed the fixed toolbar to false(now true for wordpress like tools) and inline toolbar to true provide  us the aligment feature
-  hasFixedToolbar: false,
+  hasFixedToolbar: true,
   hasInlineToolbar: true,
   // -d added block mover as true 
   hasBlockMover: true,
-  focusMode: false,
+  focusMode: true,
   isRTL: false,
   keepCaretInsideBlock: false,
-  bodyPlaceholder: 'Click + to add your first block...',
+ // bodyPlaceholder: 'Click + to add your first block...',
   supportsLayout: true,
   __experimentalFeatures: {
     // -d added layout support with content and wide widths
