@@ -45,7 +45,7 @@ const EDITOR_SETTINGS = {
   focusMode: true,
   isRTL: false,
   keepCaretInsideBlock: false,
-  bodyPlaceholder: 'Click + to add your first block...',
+ // bodyPlaceholder: 'Click + to add your first block...',
   supportsLayout: true,
   __experimentalFeatures: {
     // -d added layout support with content and wide widths
@@ -356,24 +356,7 @@ function App({ onViewSite }) {
                             <ObserveTyping>
                               <div className="editor-canvas">
 
-                                {blocks.length === 0 && (
-                                  <div className="empty-editor-hint">
-                                    <Inserter
-                                      rootClientId={undefined}
-                                      clientId={undefined}
-                                      isAppender
-                                      renderToggle={({ onToggle }) => (
-                                        <button
-                                          className="empty-inserter-btn"
-                                          onClick={onToggle}
-                                        >
-                                          <span className="plus-icon">+</span>
-                                          <span>Click to add your first block</span>
-                                        </button>
-                                      )}
-                                    />
-                                  </div>
-                                )}
+                               
 
                                 <BlockList />
 
