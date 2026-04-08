@@ -11,19 +11,20 @@ import {
   BlockEditorKeyboardShortcuts,
   BlockInspector,
 } from '@wordpress/block-editor';
+// -d 
+import { __experimentalListView as ListView } from '@wordpress/block-editor';
 import { serialize, parse, createBlock } from '@wordpress/blocks';
 import { SlotFillProvider, Popover } from '@wordpress/components';
 import { ShortcutProvider } from '@wordpress/keyboard-shortcuts';
 
 import { blockTemplates } from './data/blockTemplates';
 import { savePage, loadPage, listPages } from './data/api';
-import  logoimage from './images/editor-icon.png';
-import { 
-  FaColumns, FaEye, FaEdit, FaTrash, FaSave, FaGlobe,FaPlus,FaRegSquare
+import logoimage from './images/editor-icon.png';
+import {
+  FaColumns, FaEye, FaEdit, FaTrash, FaSave, FaGlobe, FaPlus, FaRegSquare
 } from "react-icons/fa";
 
 import { LuUndo,LuRedo } from "react-icons/lu";
-import { __experimentalListView as ListView } from '@wordpress/block-editor';
 const DEFAULT_PAGE_ID = 'home';
 
 // -d adding the styles
@@ -31,7 +32,7 @@ import '@wordpress/block-editor/build-style/style.css';
 import '@wordpress/components/build-style/style.css';
 import '@wordpress/block-library/build-style/style.css';
 import '@wordpress/block-library/build-style/theme.css';
-// import '@wordpress/block-library/build-module';
+import '@wordpress/block-library/build-module';
 // import '@wordpress/format-library';
 
 // Database functions are now in src/data/api.js — swap the bodies there
@@ -39,11 +40,11 @@ import '@wordpress/block-library/build-style/theme.css';
 
 const EDITOR_SETTINGS = {
   // -d changed the fixed toolbar to false(now true for wordpress like tools) and inline toolbar to true provide  us the aligment feature
-  hasFixedToolbar: true,
+  hasFixedToolbar: false,
   hasInlineToolbar: true,
   // -d added block mover as true 
   hasBlockMover: true,
-  focusMode: true,
+  focusMode: false,
   isRTL: false,
   keepCaretInsideBlock: false,
  // bodyPlaceholder: 'Click + to add your first block...',
@@ -83,7 +84,7 @@ const EDITOR_SETTINGS = {
 };
 
 function App({ onViewSite }) {
-  const [blocks, setBlocks] = useState([]);
+    const [blocks, setBlocks] = useState([]);
   const [output, setOutput] = useState(null);
   const [preview, setPreview] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -243,30 +244,30 @@ function App({ onViewSite }) {
         </div>
         <div className="header-center">
           <input
-              className="page-title-input"
-              value={pageTitle}
-              onChange={e => setPageTitle(e.target.value)}
-              placeholder="Page title…"
-            />
+            className="page-title-input"
+            value={pageTitle}
+            onChange={e => setPageTitle(e.target.value)}
+            placeholder="Page title…"
+          />
         </div>
         <div className="header-actions">
-          <button className="sidebar-toggle-btn header-btn-wrap" onClick={()=> setSidebarOpen(!sidebarOpen)}
-            >
+          <button className="sidebar-toggle-btn header-btn-wrap" onClick={() => setSidebarOpen(!sidebarOpen)}
+          >
             <FaColumns />
             {sidebarOpen ? '' : ''}
           </button>
 
-          <button className="preview-btn header-btn-wrap" onClick={()=> setPreview(!preview)}
-            >
+          <button className="preview-btn header-btn-wrap" onClick={() => setPreview(!preview)}
+          >
             {preview ?
-            <FaEdit /> :
-            <FaEye />}
+              <FaEdit /> :
+              <FaEye />}
             {preview ? '' : ''}
           </button>
 
           <button className="clear-btn header-btn-wrap" onClick={handleClear}>
             <FaTrash />
-            
+
           </button>
 
           <button className="save-btn header-btn-wrap" onClick={handleSave}>
@@ -298,7 +299,9 @@ function App({ onViewSite }) {
               value={blocks}
               onInput={setBlocks}
               onChange={(newBlocks) => {
-                pushHistory(blocksRef.current);
+                if (newBlocks !== blocksRef.current) {
+                  pushHistory(blocksRef.current);
+                }
                 setBlocks(newBlocks);
               }}
               settings={EDITOR_SETTINGS}
@@ -342,16 +345,16 @@ function App({ onViewSite }) {
                       onClick={() => setTemplatePickerOpen(o => !o)}
                       title="Insert a pre-built block template"
                     >
-                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                          <rect x="3" y="3" width="18" height="18" rx="2" stroke="#0F172A" strokeWidth="2"/>
-                          
-                          {/* Top full width */}
-                          <rect x="6" y="6" width="12" height="3" stroke="#0F172A" strokeWidth="2"/>
-                          
-                          {/* Bottom split */}
-                          <rect x="6" y="11" width="5" height="7" stroke="#0F172A" strokeWidth="2"/>
-                          <rect x="13" y="11" width="5" height="7" stroke="#0F172A" strokeWidth="2"/>
-                        </svg>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <rect x="3" y="3" width="18" height="18" rx="2" stroke="#0F172A" strokeWidth="2" />
+
+                        {/* Top full width */}
+                        <rect x="6" y="6" width="12" height="3" stroke="#0F172A" strokeWidth="2" />
+
+                        {/* Bottom split */}
+                        <rect x="6" y="11" width="5" height="7" stroke="#0F172A" strokeWidth="2" />
+                        <rect x="13" y="11" width="5" height="7" stroke="#0F172A" strokeWidth="2" />
+                      </svg>
                     </button>
 
                     <div className="toolbar-divider" />
@@ -363,7 +366,7 @@ function App({ onViewSite }) {
                       disabled={!canUndo}
                       title="Undo (Ctrl+Z)"
                     >
-                       <LuUndo />
+                      <LuUndo />
                     </button>
                     <button
                       className="toolbar-btn"
@@ -371,9 +374,8 @@ function App({ onViewSite }) {
                       disabled={!canRedo}
                       title="Redo (Ctrl+Y)"
                     >
-                         <LuRedo />
+                      <LuRedo />
                     </button>
-                    {/* -d list view */}
                     <button
                         className={`toolbar-btn ${listViewOpen ? 'active' : ''}`}
                         onClick={() => setListViewOpen(prev => !prev)}
@@ -383,7 +385,47 @@ function App({ onViewSite }) {
                     </button>
 
                   </div>
-                  {/* -d addrd editor-layout and list view */}
+            
+                  {/* ── Template Picker Panel (Step 19) ── */}
+                  {templatePickerOpen && (
+                    <div className="template-picker">
+                      <div className="template-picker-header">
+                        <span className="template-picker-title">Choose a Template</span>
+                        <label className="template-replace-toggle">
+                          <input
+                            type="checkbox"
+                            checked={templateReplaceMode}
+                            onChange={e => setTemplateReplaceMode(e.target.checked)}
+                          />
+                          Replace existing content
+                        </label>
+                        <button
+                          className="template-picker-close"
+                          onClick={() => setTemplatePickerOpen(false)}
+                          title="Close"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                      <div className="template-picker-grid">
+                        {blockTemplates.map(tpl => (
+                          <button
+                            key={tpl.slug}
+                            className="template-card"
+                            onClick={() => applyTemplate(tpl)}
+                            title={tpl.description}
+                          >
+                            <span className="template-card-icon">{tpl.icon}</span>
+                            <span className="template-card-label">{tpl.label}</span>
+                            <span className="template-card-meta">{tpl.category}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* ✅ BlockTools wraps everything for drag and toolbar */}
+                        {/* -d addrd editor-layout and list view */}
                   <div className="editor-split-layout">
 
                     {/* LEFT: List View */}
@@ -393,7 +435,7 @@ function App({ onViewSite }) {
                       </div>
                     )}
 
-                    {/* RIGHT: ACTUAL EDITOR */}
+                    {/* RIGHT: Editor */}
                     <div className="editor-content">
 
                     <BlockTools>
@@ -435,49 +477,8 @@ function App({ onViewSite }) {
                   </BlockTools>
 
                     </div>
-
                   </div>
-
-                  {/* ── Template Picker Panel (Step 19) ── */}
-                  {templatePickerOpen && (
-                    <div className="template-picker">
-                      <div className="template-picker-header">
-                        <span className="template-picker-title">Choose a Template</span>
-                        <label className="template-replace-toggle">
-                          <input
-                            type="checkbox"
-                            checked={templateReplaceMode}
-                            onChange={e => setTemplateReplaceMode(e.target.checked)}
-                          />
-                          Replace existing content
-                        </label>
-                        <button
-                          className="template-picker-close"
-                          onClick={() => setTemplatePickerOpen(false)}
-                          title="Close"
-                        >
-                          ✕
-                        </button>
-                      </div>
-                      <div className="template-picker-grid">
-                        {blockTemplates.map(tpl => (
-                          <button
-                            key={tpl.slug}
-                            className="template-card"
-                            onClick={() => applyTemplate(tpl)}
-                            title={tpl.description}
-                          >
-                            <span className="template-card-icon">{tpl.icon}</span>
-                            <span className="template-card-label">{tpl.label}</span>
-                            <span className="template-card-meta">{tpl.category}</span>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
                 </div>
-
                 {/* ---- SIDEBAR ---- */}
                 {sidebarOpen && (
                   <div className="editor-sidebar">
@@ -489,9 +490,7 @@ function App({ onViewSite }) {
                     </div>
                   </div>
                 )}
-
               </div>
-
               <Popover.Slot />
 
             </BlockEditorProvider>
