@@ -9,7 +9,35 @@ import App from './App';
 import FrontendPage from './FrontendPage';
 import { initBlocks } from './registerBlocks.jsx';
 import './index.css';
+// -d adding filters 
+import { addFilter } from '@wordpress/hooks';
 
+addFilter(
+  'blocks.registerBlockType',
+  'custom/extend-block-supports',
+  (settings, name) => {
+    return {
+      ...settings,
+      supports: {
+        ...settings.supports,
+        spacing: {
+          padding: true,
+          margin: true,
+        },
+        layout: true,
+        color: {
+          text: true,
+          background: true,
+          link: true,
+        },
+        typography: {
+          fontSize: true,
+          lineHeight: true,
+        },
+      },
+    };
+  }
+);
 initBlocks();
 
 function Root() {

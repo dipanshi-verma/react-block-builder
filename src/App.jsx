@@ -29,15 +29,17 @@ const DEFAULT_PAGE_ID = 'home';
 
 // -d adding the styles
 import '@wordpress/block-editor/build-style/style.css';
+// import '@wordpress/block-editor/build-style/theme.css';
 import '@wordpress/components/build-style/style.css';
 import '@wordpress/block-library/build-style/style.css';
 import '@wordpress/block-library/build-style/theme.css';
-import '@wordpress/block-library/build-module';
-// import '@wordpress/format-library';
+// import '@wordpress/block-library/build-module';
+// // import '@wordpress/format-library';
+// import { registerCoreBlocks } from '@wordpress/block-library';                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+import { getBlockType } from '@wordpress/blocks';
 
 // Database functions are now in src/data/api.js — swap the bodies there
 // to point at any real backend (Express, WordPress REST API, Supabase, etc.)
-
 const EDITOR_SETTINGS = {
   // -d changed the fixed toolbar to false(now true for wordpress like tools) and inline toolbar to true provide  us the aligment feature
   hasFixedToolbar: false,
@@ -104,6 +106,9 @@ function App({ onViewSite }) {
   const [templatePickerOpen, setTemplatePickerOpen] = useState(false);
   const [templateReplaceMode, setTemplateReplaceMode] = useState(false);
 
+  useEffect(() => {
+  console.log(getBlockType('core/group'));
+}, []);
   // Keep blocksRef in sync so history closures always snapshot the latest state
   useEffect(() => { blocksRef.current = blocks; }, [blocks]);
 
@@ -146,7 +151,8 @@ function App({ onViewSite }) {
       btn.classList.add("my-custom-class");
     });
   }, []);
-  
+
+
   async function loadBlocks() {
     try {
       // loadPage() is defined in src/data/api.js
@@ -229,7 +235,8 @@ function App({ onViewSite }) {
     setBlocks(result);
     setTemplatePickerOpen(false);
   }
-
+ 
+  
   return (
     <div className="editor-wrapper">
 
