@@ -66,7 +66,7 @@ p{
 /* Gutenberg overrides */
 .builder-wrapper .block-editor-block-list__layout {
   min-height: 400px;
-  width: 70%;
+  width: 100%;
 }
 
 .builder-wrapper .wp-block {
@@ -105,7 +105,7 @@ p{
 }
 
 .builder-wrapper .copy-btn {
-  background: #3858e9;
+  background: var(--primary);
   color: #fff;
   border: none;
   padding: 4px 12px;
@@ -115,7 +115,7 @@ p{
 }
 
 .builder-wrapper .copy-btn:hover {
-  background: #2145e6;
+  background: var(--primary-hover);
 }
 
 .builder-wrapper .output-code {
@@ -133,7 +133,7 @@ p{
 /* CTA Block - editor view */
 .builder-wrapper .cta-block-editor {
   background: #f0f4ff;
-  border: 2px dashed #3858e9;
+  border: 2px dashed var(--primary);
   border-radius: 8px;
   padding: 24px;
 }
@@ -147,7 +147,7 @@ p{
 
 .builder-wrapper .cta-block-editor .cta-button-text {
   display: inline-block;
-  background: #3858e9;
+  background: var(--primary);
   color: #fff;
   padding: 8px 20px;
   border-radius: 6px;
@@ -197,7 +197,7 @@ p{
 }
 
 .builder-wrapper .preview-content .cta-button {
-  background: #3858e9;
+  background: var(--primary);
   color: #fff;
   border: none;
   padding: 10px 24px;
@@ -232,7 +232,7 @@ p{
 }
 
 .builder-wrapper .copy-btn {
-  background: #3858e9;
+  background: var(--primary);
   color: #fff;
   border: none;
   padding: 4px 12px;
@@ -240,7 +240,7 @@ p{
   font-size: 12px;
   cursor: pointer;
 }
-.builder-wrapper .copy-btn:hover { background: #2145e6; }
+.builder-wrapper .copy-btn:hover { background: var(--primary); }
 
 .builder-wrapper .output-code {
   padding: 16px;
@@ -257,7 +257,7 @@ p{
 /* ---- CTA Block ---- */
 .builder-wrapper .cta-block-editor {
   background: #f0f4ff;
-  border: 2px dashed #3858e9;
+  border: 2px dashed var(--primary);
   border-radius: 8px;
   padding: 24px;
 }
@@ -271,7 +271,7 @@ p{
 
 .builder-wrapper .cta-block-editor .cta-button-text {
   display: inline-block;
-  background: #3858e9;
+  background: var(--primary);
   color: #fff;
   padding: 8px 20px;
   border-radius: 6px;
@@ -304,7 +304,7 @@ p{
 }
 
 .builder-wrapper .copy-btn {
-  background: #3858e9;
+  background: var(--primary);
   color: #fff;
   border: none;
   padding: 4px 12px;
@@ -329,7 +329,7 @@ p{
 /* ---- CTA Block ---- */
 .builder-wrapper .cta-block-editor {
   background: #f0f4ff;
-  border: 2px dashed #3858e9;
+  border: 2px dashed var(--primary);
   border-radius: 8px;
   padding: 24px;
 }
@@ -343,7 +343,7 @@ p{
 
 .builder-wrapper .cta-block-editor .cta-button-text {
   display: inline-block;
-  background: #3858e9;
+  background: var(--primary);
   color: #fff;
   padding: 8px 20px;
   border-radius: 6px;
@@ -379,11 +379,11 @@ p{
 /* ---- Style the WP appender button ---- */
 .builder-wrapper .block-editor-button-block-appender {
   background: #fff !important;
-  border: 2px dashed #3858e9 !important;
+  border: 2px dashed var(--primary) !important;
   border-radius: 50% !important;
   width: 36px !important;
   height: 36px !important;
-  color: #3858e9 !important;
+  color: var(--primary) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -496,8 +496,11 @@ p{
   justify-content: center;
   padding: 15px;
 }
-
-.builder-wrapper .empty-inserter-btn {
+.inserter-active .builder-wrapper .editor-canvas {
+  width: calc(100% - 350px);
+  margin-left: auto;
+}
+.block-editor-default-block-appender {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -512,19 +515,24 @@ p{
   font-size: 16px;
   transition: background 0.2s;
   width: 100%;
-  max-width: 900px;
+  max-width: 100%;
   margin: 0 auto;
   min-height: 300px;
   font-weight: 500;
+  flex-direction: column-reverse;
 }
-.builder-wrapper .empty-inserter-btn:hover { background: var(--primary-light); }
+.block-editor-default-block-appender:hover { background: var(--primary-light); }
 
 .builder-wrapper .plus-icon {
   font-size: 32px;
   line-height: 1;
   font-weight: 300;
 }
-
+.block-editor-default-block-appender p{
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 500;
+}
 /* ---- Bottom inline + inserter ---- */
 .builder-wrapper .bottom-inserter {
   display: flex;
@@ -538,9 +546,9 @@ p{
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  border: 2px dashed #3858e9;
+  border: 2px dashed var(--primary);
   background: #fff;
-  color: #3858e9;
+  color: var(--primary);
   font-size: 20px;
   cursor: pointer;
   display: flex;
@@ -550,7 +558,7 @@ p{
   line-height: 1;
 }
 .builder-wrapper .inline-inserter-btn:hover {
-  background: #3858e9;
+  background: var(--primary-hover);
   color: #fff;
   border-style: solid;
 }
@@ -560,6 +568,9 @@ p{
 
 .builder-wrapper .block-editor-block-list__layout {
   min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 /* ✅ Show WP native inline inserter between blocks */
@@ -568,17 +579,14 @@ p{
 }
 
 /* ✅ drag handle visible on hover */
-.builder-wrapper .block-editor-block-mover {
-  opacity: 0;
-  transition: opacity 0.2s;
-}
+
 .builder-wrapper .wp-block:hover .block-editor-block-mover {
   opacity: 1;
 }
 
 /* ✅ drag and drop indicator line */
 .builder-wrapper .block-editor-block-drop-zone {
-  border: 2px solid #3858e9 !important;
+  border: 2px solid var(--primary) !important;
 }
 
 /* ---- Sidebar ---- */
@@ -652,7 +660,7 @@ p{
 }
 
 .builder-wrapper .preview-content .cta-button {
-  background: #3858e9;
+  background: var(--primary);
   color: #fff;
   border: none;
   padding: 10px 24px;
@@ -685,17 +693,6 @@ p{
   font-size: 13px;
 }
 
-.builder-wrapper .copy-btn {
-  background: #3858e9;
-  color: #fff;
-  border: none;
-  padding: 4px 12px;
-  border-radius: 4px;
-  font-size: 12px;
-  cursor: pointer;
-}
-.builder-wrapper .copy-btn:hover { background: #2145e6; }
-
 .builder-wrapper .output-code {
   padding: 16px;
   color: #d4d4d4;
@@ -711,7 +708,7 @@ p{
 /* ---- CTA Block ---- */
 .builder-wrapper .cta-block-editor {
   background: #f0f4ff;
-  border: 2px dashed #3858e9;
+  border: 2px dashed var(--primary);
   border-radius: 8px;
   padding: 24px;
 }
@@ -725,7 +722,7 @@ p{
 
 .builder-wrapper .cta-block-editor .cta-button-text {
   display: inline-block;
-  background: #3858e9;
+  background: var(--primary);
   color: #fff;
   padding: 8px 20px;
   border-radius: 6px;
@@ -870,7 +867,7 @@ p{
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: #3858e9;
+  color: var(--primary);
   background: #e8edff;
   padding: 2px 7px;
   border-radius: 10px;
@@ -919,7 +916,7 @@ p{
 }
 .builder-wrapper .page-title-input:focus {
   outline: none;
-  border-color: #3858e9;
+  border-color:  var(--primary-hover);
   box-shadow: 0 0 0 2px rgba(56,88,233,0.15);
 }
 
@@ -1042,8 +1039,8 @@ p{
 
 .builder-wrapper .fp-page-item.active .fp-page-item-btn {
   background: #f0f4ff;
-  border-right: 3px solid #3858e9;
-  color: #3858e9;
+  border-right: 3px solid var(--primary);
+  color: var(--primary);
 }
 
 .builder-wrapper .fp-page-item-btn {
@@ -1136,7 +1133,7 @@ p{
 .builder-wrapper .fp-page-content p { margin-bottom: 1em; }
 .builder-wrapper .fp-page-content ul,.builder-wrapper .fp-page-content ol { padding-left: 1.5em; margin-bottom: 1em; }
 .builder-wrapper .fp-page-content img { max-width: 100%; border-radius: 6px; }
-.builder-wrapper .fp-page-content a { color: #3858e9; text-decoration: underline; }
+.builder-wrapper .fp-page-content a { color: var(--primary); text-decoration: underline; }
 
 /* -- Debug panel -- */
 .builder-wrapper .fp-debug {
@@ -1242,7 +1239,8 @@ p{
 
 .builder-wrapper .show-icon-labels .components-accessible-toolbar .components-toolbar-group>div:first-child:last-child>.components-button.has-icon {
   padding-left: 6px;
-  padding-right: 6px
+  padding-right: 6px;
+
 }
 
 .builder-wrapper .show-icon-labels .block-editor-block-parent-selector .block-editor-block-parent-selector__button {
@@ -1366,6 +1364,7 @@ p{
   box-shadow: none;
   border-right: 1px solid #ddd;
   padding: 0px !important;
+  width: 350px;
 }
 .components-popover__fallback-container .block-editor-inserter__popover .block-editor-inserter__menu {
   margin: 0px;
@@ -1444,4 +1443,65 @@ p{
 }
 .builder-wrapper .fp-main{
   max-width: 100%;
+}
+.editor-list-view{
+  width: 350px;
+  height: 100vh;
+  border-right: 1px solid #ddd;
+  position: absolute;
+  left: 0px;
+}
+
+.list-view-active .builder-wrapper .editor-canvas{
+  width: calc(100% - 350px);
+  margin-left: auto;
+}
+
+.dashicons{
+  background-image: url(/src/images/block.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: block;
+  height: 18px;
+  width: 18px;
+}
+.block-editor-block-icon .dashicons{
+  height: 15px;
+  width: 15px;
+}
+/* @media not (prefers-reduced-motion) {
+  .components-accessible-toolbar .components-button:before, .components-toolbar .components-button:before {
+      animation: components-button__appear-animation .1s ease;
+      animation-fill-mode: forwards;
+  }
+}
+
+@keyframes components-button__appear-animation {
+  0% {
+      transform: scaleY(0)
+  }
+
+  to {
+      transform: scaleY(1)
+  }
+} */
+
+.wp-element-button, .wp-block-button__link {
+  background-color: var(--black);
+  border-width: 0;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 14px 25px;
+  text-decoration: none;
+  text-transform: inherit;
+  font-family: var(--font-primary);
+}
+.rich-text [data-rich-text-placeholder]:after {
+  content: attr(data-rich-text-placeholder);
+  opacity: 0.8;
+}
+.components-toolbar-group
+{
+  padding: 0px;
 }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { select, subscribe } from "@wordpress/data";
 // -d added the format library for text formatting options (bold, italic, etc.)
 import {
   BlockEditorProvider,
@@ -109,6 +110,43 @@ function App({ onViewSite }) {
   useEffect(() => {
     loadBlocks();
   }, []);
+
+  useEffect(() => {
+    const handleBlockClick = (e) => {
+      if (e.target.closest(".block-editor-block-types-list__list-item")) {
+        document.body.classList.remove("inserter-active");
+      }
+    };
+  
+    document.addEventListener("click", handleBlockClick);
+  
+    return () => {
+      document.removeEventListener("click", handleBlockClick);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (listViewOpen) {
+      document.body.classList.add('list-view-active');
+    } else {
+      document.body.classList.remove('list-view-active');
+    }
+  
+    return () => {
+      document.body.classList.remove('list-view-active');
+    };
+  }, [listViewOpen]);
+
+  useEffect(() => {
+    const btns = document.querySelectorAll(
+      ".block-editor-block-mover__drag-handle"
+    );
+  
+    btns.forEach((btn) => {
+      btn.classList.add("my-custom-class");
+    });
+  }, []);
+  
   async function loadBlocks() {
     try {
       // loadPage() is defined in src/data/api.js
@@ -277,19 +315,26 @@ function App({ onViewSite }) {
 
                   {/* ✅ Fixed top toolbar with + inserter, Templates, Undo/Redo */}
                   <div className="editor-toolbar">
-                    <Inserter
+                  <Inserter
                       rootClientId={undefined}
                       clientId={undefined}
                       isAppender
-                      renderToggle={({ onToggle }) => (
-                        <button
-                          className="toolbar-inserter-btn"
-                          onClick={onToggle}
-                          title="Add block"
-                        >
-                          <FaPlus />
-                        </button>
-                      )}
+                      renderToggle={({ onToggle }) => {
+                        const handleClick = () => {
+                          onToggle();
+                          document.body.classList.toggle("inserter-active");
+                        };
+
+                        return (
+                          <button
+                            className="toolbar-inserter-btn"
+                            onClick={handleClick}
+                            title="Add block"
+                          >
+                            <FaPlus />
+                          </button>
+                        );
+                      }}
                     />
 
                     <div className="toolbar-divider" />
@@ -332,12 +377,13 @@ function App({ onViewSite }) {
                       <LuRedo />
                     </button>
                     <button
-                      className={`toolbar-btn ${listViewOpen ? 'active' : ''}`}
-                      onClick={() => setListViewOpen(prev => !prev)}
-                      title="List View"
-                    >
+                        className={`toolbar-btn ${listViewOpen ? 'active' : ''}`}
+                        onClick={() => setListViewOpen(prev => !prev)}
+                        title="List View"
+                      >
                       ☰
                     </button>
+
                   </div>
             
                   {/* ── Template Picker Panel (Step 19) ── */}
@@ -392,60 +438,43 @@ function App({ onViewSite }) {
                     {/* RIGHT: Editor */}
                     <div className="editor-content">
 
-                      <BlockTools>
-                        <div className="editor-canvas-wrapper">
-                          <WritingFlow>
-                            <ObserveTyping>
-                              <div className="editor-canvas">
+                    <BlockTools>
+                    <div className="editor-canvas-wrapper">
+                      <WritingFlow>
+                        <ObserveTyping>
+                          <div className="editor-canvas">
 
-                                {/* ✅ Empty state */}
-                                {blocks.length === 0 && (
-                                  <div className="empty-editor-hint">
-                                    <Inserter
-                                      rootClientId={undefined}
-                                      clientId={undefined}
-                                      isAppender
-                                      renderToggle={({ onToggle }) => (
-                                        <button
-                                          className="empty-inserter-btn"
-                                          onClick={onToggle}
-                                        >
-                                          <FaPlus />
-                                          <span>Click to add your first block</span>
-                                        </button>
-                                      )}
-                                    />
-                                  </div>
-                                )}
+                            {/* ✅ Empty state */}
+                     
 
-                                {/* ✅ Main block list — drag and drop built in */}
-                                <BlockList />
+                            {/* ✅ Main block list — drag and drop built in */}
+                            <BlockList />
 
-                                {/* ✅ Bottom inline + inserter */}
-                                {blocks.length > 0 && (
-                                  <div className="bottom-inserter">
-                                    <Inserter
-                                      rootClientId={undefined}
-                                      clientId={undefined}
-                                      isAppender
-                                      renderToggle={({ onToggle }) => (
-                                        <button
-                                          className="inline-inserter-btn"
-                                          onClick={onToggle}
-                                          title="Add block below"
-                                        >
-                                          +
-                                        </button>
-                                      )}
-                                    />
-                                  </div>
-                                )}
-
+                            {/* ✅ Bottom inline + inserter */}
+                            {blocks.length > 0 && (
+                              <div className="bottom-inserter">
+                                <Inserter
+                                  rootClientId={undefined}
+                                  clientId={undefined}
+                                  isAppender
+                                  renderToggle={({ onToggle }) => (
+                                    <button
+                                      className="inline-inserter-btn"
+                                      onClick={onToggle}
+                                      title="Add block below"
+                                    >
+                                      +
+                                    </button>
+                                  )}
+                                />
                               </div>
-                            </ObserveTyping>
-                          </WritingFlow>
-                        </div>
-                      </BlockTools>
+                            )}
+
+                          </div>
+                        </ObserveTyping>
+                      </WritingFlow>
+                    </div>
+                  </BlockTools>
 
                     </div>
                   </div>
